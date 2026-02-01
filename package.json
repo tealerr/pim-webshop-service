@@ -1,0 +1,38 @@
+{
+    "name": "pim-webshop-service",
+    "version": "1.0.0",
+    "private": true,
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "node dist/index.js",
+        "dev": "ts-node src/routes/server.ts"
+    },
+    "dependencies": {
+        "bcrypt": "^6.0.0",
+        "body-parser": "^2.2.2",
+        "cors": "^2.8.6",
+        "express": "^5.2.1",
+        "js-yaml": "^4.1.1",
+        "jsonwebtoken": "^9.0.3",
+        "mongoose": "^7.0.0",
+        "multer": "^2.0.2",
+        "nodemailer": "^7.0.13"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "^6.0.0",
+        "@types/body-parser": "^1.19.6",
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.6",
+        "@types/jest": "^30.0.0",
+        "@types/js-yaml": "^4.0.9",
+        "@types/jsonwebtoken": "^9.0.10",
+        "@types/multer": "^2.0.0",
+        "@types/node": "^20.0.0",
+        "@types/nodemailer": "^7.0.9",
+        "jest": "^30.2.0",
+        "ts-jest": "^29.4.6",
+        "ts-node": "^10.0.0",
+        "typescript": "^5.0.0"
+    }
+}
