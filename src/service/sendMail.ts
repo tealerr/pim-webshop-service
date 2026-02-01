@@ -1,6 +1,4 @@
 import nodemailer from "nodemailer"
-import yaml from "js-yaml"
-import fs from "fs"
 
 interface MailRequest {
     to: string
