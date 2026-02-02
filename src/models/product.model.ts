@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose"
+import mongoose, { Document, Schema } from 'mongoose';
 
 interface ProductModel {
     name: string
@@ -11,9 +11,9 @@ const ProductSchema = new Schema<ProductModel>({
     name: { type: String, required: true },
     productId: { type: String, required: true, unique: true },
     price: { type: Number, required: true },
-    count: { type: Number, required: true },
-})
+    count: { type: Number, required: true }
+});
 
-const ProductModel = mongoose.model<ProductModel>("Product", ProductSchema)
+const ProductModel = mongoose.model<ProductModel>('Product', ProductSchema);
 
-export default ProductModel
+export default ProductModel;

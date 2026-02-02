@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose"
+import mongoose, { Document, Schema } from 'mongoose';
 
 interface CustomerInfoModel extends Document {
     email: string
@@ -19,12 +19,12 @@ const CustomerInfoSchema = new Schema<CustomerInfoModel>({
     city: { type: String, required: true },
     state: { type: String, required: true },
     zip: { type: String, required: true },
-    image: { type: String, required: true },
-})
+    image: { type: String, required: true }
+});
 
 const CustomerInfoModel = mongoose.model<CustomerInfoModel>(
-    "CustomerInfo",
+    'CustomerInfo',
     CustomerInfoSchema
-)
+);
 
-export default CustomerInfoModel
+export default CustomerInfoModel;

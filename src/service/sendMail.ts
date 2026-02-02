@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer"
+import nodemailer from 'nodemailer';
 
 interface MailRequest {
     to: string
@@ -24,7 +24,7 @@ const sendMailFunction = async (reqBody: MailRequest): Promise<string> => {
             </div>
         </body>
         </html>
-        `
+        `;
         // const dataFilePath = "data.yml"
 
         // const data: Record<string, any> = yaml.load(
@@ -32,27 +32,27 @@ const sendMailFunction = async (reqBody: MailRequest): Promise<string> => {
         // ) as Record<string, any>
 
         const transporter = nodemailer.createTransport({
-            service: "gmail",
+            service: 'gmail',
             auth: {
-                user: "forwebpim@gmail.com",
-                pass: "rrzb vnaw vxwa euny",
-            },
-        })
+                user: process.env.MAIL_USERNAME || '',
+                pass: process.env.MAIL_PASSWORD || ''
+            }
+        });
 
         const mailOptions = {
-            from: "PIM WebShop <forwebpim@gmail.com>",
+            from: 'PIM WebShop <forwebpim@gmail.com>',
             to: reqBody.to,
             subject: reqBody.subject,
             text: reqBody.text,
-            html: confirmTemplate,
-        }
+            html: confirmTemplate
+        };
 
-        const info = await transporter.sendMail(mailOptions)
+        const info = await transporter.sendMail(mailOptions);
 
-        return `Email sent: ${info.response}`
+        return `Email sent: ${info.response}`;
     } catch (error: any) {
-        throw error.toString()
+        throw error.toString();
     }
-}
+};
 
-export { sendMailFunction }
+export { sendMailFunction };

@@ -1,7 +1,7 @@
 // Main entrypoint for the application
 // Load environment variables first
-import "dotenv/config"
+import 'dotenv/config';
 // Importing the server module triggers the server startup.
-import "./routes/server"
+import './routes/server';
 
-export default undefined
+export default undefined;

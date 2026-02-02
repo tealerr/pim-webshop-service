@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose"
+import mongoose, { Document } from 'mongoose';
 
 // Define the image document interface
 interface ImageDocument extends Document {
@@ -9,10 +9,10 @@ interface ImageDocument extends Document {
 // Create a schema for the image model
 const imageSchema = new mongoose.Schema({
     filename: String,
-    path: String,
-})
+    path: String
+});
 
 // Create the image model
-const Image = mongoose.model<ImageDocument>("Image", imageSchema)
+const Image = mongoose.model<ImageDocument>('Image', imageSchema);
 
-export default Image
+export default Image;

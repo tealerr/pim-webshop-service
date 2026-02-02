@@ -1,98 +1,98 @@
-import { Request, Response } from "express"
-import Product from "../models/product.model"
+import { Request, Response } from 'express';
+import Product from '../models/product.model';
 
 export const getProductById = async (productId: string) => {
     try {
-        const product = await Product.findOne({ productId })
+        const product = await Product.findOne({ productId });
         if (!product) {
-            throw new Error("Product not found")
+            throw new Error('Product not found');
         }
-        return { name: product.name, count: product.count }
+        return { name: product.name, count: product.count };
     } catch (error: any) {
-        console.error("Error in getProductById:", error)
-        throw new Error("Internal Server Error")
+        console.error('Error in getProductById:', error);
+        throw new Error('Internal Server Error');
     }
-}
+};
 
 export const updateProductCount = async (
     productId: string,
     countToSubtract: number
 ) => {
     try {
-        const product = await Product.findOne({ productId })
+        const product = await Product.findOne({ productId });
 
         if (!product) {
-            throw new Error("Product not found")
+            throw new Error('Product not found');
         }
 
         if (product.count < countToSubtract) {
-            throw new Error("Not enough stock")
+            throw new Error('Not enough stock');
         }
 
-        product.count -= countToSubtract
-        await product.save()
+        product.count -= countToSubtract;
+        await product.save();
 
-        return product
+        return product;
     } catch (error: any) {
-        throw new Error(`Update Product Count Error: ${error.message}`)
+        throw new Error(`Update Product Count Error: ${error.message}`);
     }
-}
+};
 
 export const getAllProducts = async (req: Request, res: Response) => {
     try {
-        const products = await Product.find()
+        const products = await Product.find();
         const formattedProducts = products.map((product) => ({
             productId: product.productId,
             name: product.name,
-            count: product.count,
-        }))
+            count: product.count
+        }));
 
         res.json({
-            products: formattedProducts,
-        })
+            products: formattedProducts
+        });
     } catch (error: any) {
-        res.status(500).send(error.toString())
+        res.status(500).send(error.toString());
     }
-}
+};
 
 export const checkoutProduct = async (req: Request, res: Response) => {
     try {
-        const { productId } = req.body
-        const { count } = req.body
+        const { productId } = req.body;
+        const { count } = req.body;
 
         if (!productId || !count) {
-            return res.status(400).json({ error: "Missing required fields" })
+            return res.status(400).json({ error: 'Missing required fields' });
         }
 
-        const existingProduct = await Product.findOne({ productId })
+        const existingProduct = await Product.findOne({ productId });
 
         if (!existingProduct) {
-            return res.status(404).json({ error: "Product not found" })
+            return res.status(404).json({ error: 'Product not found' });
         }
 
         if (count > existingProduct.count) {
-            const errorMessage = `Product in stock not enough for your requested quantity. Currently, the product has ${existingProduct.count} quantity.`
+            const errorMessage = `Product in stock not enough for your requested quantity. Currently, the product has ${existingProduct.count} quantity.`;
 
             return res.status(500).json({
-                error: errorMessage,
-            })
+                error: errorMessage
+            });
         }
 
         if (existingProduct.count == 0) {
-            return res.status(404).json({ error: "Product out of stock" })
+            return res.status(404).json({ error: 'Product out of stock' });
         }
 
-        const updatedProduct = await updateProductCount(productId, count)
+        const updatedProduct = await updateProductCount(productId, count);
         res.json({
-            message: "Product count updated successfully!",
+            message: 'Product count updated successfully!',
             product: {
                 productId: updatedProduct.productId,
                 name: updatedProduct.name,
-                count: updatedProduct.count,
-            },
-        })
+                count: updatedProduct.count
+            }
+        });
     } catch (error: any) {
-        console.error("Error in checkoutProduct:", error)
-        res.status(500).json({ error: "Internal Server Error" })
+        console.error('Error in checkoutProduct:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-}
+};

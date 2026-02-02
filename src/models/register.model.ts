@@ -1,5 +1,5 @@
-import mongoose, { Document, Schema } from "mongoose"
-import bcrypt from "bcrypt"
+import mongoose, { Document, Schema } from 'mongoose';
+import bcrypt from 'bcrypt';
 
 // Define the interface for the user document
 interface IUser extends Document {
@@ -13,36 +13,36 @@ const registerSchema = new Schema<IUser>({
     username: {
         type: String,
         required: true,
-        unique: true,
+        unique: true
     },
     email: {
         type: String,
         required: true,
-        unique: true,
+        unique: true
     },
     password: {
         type: String,
-        required: true,
-    },
-})
+        required: true
+    }
+});
 
 // Hash the password before saving
-registerSchema.pre<IUser>("save", async function (next) {
-    const user = this
+registerSchema.pre<IUser>('save', async function (next) {
+    const user = this;
 
-    if (!user.isModified("password")) return next()
+    if (!user.isModified('password')) return next();
 
     try {
-        const salt = await bcrypt.genSalt(10)
-        const hashedPassword = await bcrypt.hash(user.password, salt)
-        user.password = hashedPassword
-        next()
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(user.password, salt);
+        user.password = hashedPassword;
+        next();
     } catch (error: any) {
-        next(error)
+        next(error);
     }
-})
+});
 
 // Create the Register model
-const Register = mongoose.model<IUser>("Register", registerSchema)
+const Register = mongoose.model<IUser>('Register', registerSchema);
 
-export { Register, IUser }
+export { Register, IUser };
