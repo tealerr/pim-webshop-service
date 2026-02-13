@@ -1,5 +1,5 @@
-import js from "@eslint/js"
-import ts from "typescript-eslint"
+import js from "@eslint/js";
+import ts from "typescript-eslint";
 
 export default [
     {
@@ -42,4 +42,4 @@ export default [
             "max-len": ["warn", { code: 100 }],
         },
     },
-]
+];
